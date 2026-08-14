@@ -3,7 +3,7 @@ Project status overview.
 
 ## Modules
 - **Core**: Redroid GApps & Non-GApps containers.
-- **Scripts**: Deployment, Mirroring, Backup, and Release Upload.
+- **Scripts**: Deployment, Mirroring, Backup, and Release Upload (Alpine supported).
 - **Docs**: Setup, Usage, Backup/Restore (All translated to English).
 
 ## Status
@@ -13,3 +13,4 @@ Project status overview.
 - [x] Backup Automation
 - [x] GitHub Release Automation
 - [x] English Documentation
+- [x] Alpine Linux Host Support

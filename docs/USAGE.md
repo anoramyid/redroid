@@ -16,6 +16,7 @@ Replace `<HOST-IP>` with the Docker host's IP address, or `localhost` if running
 | OS | Install Command |
 |---|---|
 | Linux (Debian/Ubuntu) | `sudo apt install scrcpy adb -y` |
+| Linux (Alpine) | `sudo apk add android-tools` (ADB only) |
 | Linux (latest via snap) | `sudo snap install scrcpy` |
 | Windows | `winget install Genymobile.scrcpy` |
 | macOS | `brew install scrcpy` |

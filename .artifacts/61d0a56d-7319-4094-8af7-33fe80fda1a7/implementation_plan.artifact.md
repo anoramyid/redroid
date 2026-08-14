@@ -1,55 +1,45 @@
-# Documentation Globalization & Final Synchronization
+# Alpine Linux Support Implementation Plan
 
-Rencana ini bertujuan untuk menerjemahkan seluruh dokumentasi ke bahasa Inggris, menyelaraskan alur kerja (TSA-X, backup, upload rilis), dan melakukan sinkronisasi akhir ke GitHub.
+This plan outlines the changes needed to support Alpine Linux as a host for Redroid instances. Alpine Linux handles kernel modules like `binder` differently (often built-in via `binderfs` instead of loadable modules) and uses `musl` libc, requiring specific configuration for stability.
+
+## User Review Required
+
+> [!IMPORTANT]
+> Alpine Linux's default kernel (`linux-lts`) typically includes `binder` support built-in. This means `modprobe` will fail, but the feature is available. The `deploy.sh` script will be updated to handle this automatically by attempting to mount `binderfs` if the module isn't found.
 
 ## Proposed Changes
 
-### 1. Globalization (English Translation)
-Menerjemahkan semua file dokumentasi agar konsisten dalam bahasa Inggris.
+### 1. Script Enhancements
 
-#### [MODIFY] [README.md](file:///home/sam/Documents/redroid-repo/README.md)
-* Mengubah konten ke bahasa Inggris dengan struktur TSA-X yang diperbarui.
+#### [MODIFY] [deploy.sh](file:///home/sam/Documents/redroid-repo/scripts/deploy.sh)
+- Add detection for Alpine Linux.
+- Add logic to mount `binderfs` if `modprobe binder_linux` is not applicable.
+- Add `androidboot.use_memfd=1` to both `docker run` commands to ensure compatibility with modern kernels (standard in Alpine 3.20+).
 
-#### [MODIFY] [PIPELINE.md](file:///home/sam/Documents/redroid-repo/PIPELINE.md)
-* Mengubah konten ke bahasa Inggris, menjelaskan alur "Backup -> Release".
+### 2. Documentation Updates
 
-#### [MODIFY] [CONTRIBUTING.md](file:///home/sam/Documents/redroid-repo/CONTRIBUTING.md)
-* Mengubah konten ke bahasa Inggris.
+#### [MODIFY] [SETUP.md](file:///home/sam/Documents/redroid-repo/docs/SETUP.md)
+- Add an "Alpine Linux" section under Host Requirements.
+- Document `binderfs` mounting requirements and persistent `/etc/fstab` configuration.
+- Explain the necessity of the `use_memfd=1` flag.
 
-#### [MODIFY] [.ai/memory.md](file:///home/sam/Documents/redroid-repo/.ai/memory.md)
-* Mengubah header dan struktur log ke bahasa Inggris.
+#### [MODIFY] [USAGE.md](file:///home/sam/Documents/redroid-repo/docs/USAGE.md)
+- Add Alpine Linux (`apk`) commands for installing client tools (`android-tools` for ADB).
 
-#### [MODIFY] [docs/SETUP.md](file:///home/sam/Documents/redroid-repo/docs/SETUP.md)
-* Memastikan konten teknis tetap akurat dalam bahasa Inggris.
-
-#### [MODIFY] [docs/USAGE.md](file:///home/sam/Documents/redroid-repo/docs/USAGE.md)
-* Memastikan instruksi penggunaan konsisten dalam bahasa Inggris.
-
-#### [MODIFY] [docs/BACKUP_RESTORE.md](file:///home/sam/Documents/redroid-repo/docs/BACKUP_RESTORE.md)
-* Memperbarui instruksi dengan menonjolkan penggunaan `scripts/backup-redroid.sh`.
-
-#### [MODIFY] [docs/pipeline/current-state.md](file:///home/sam/Documents/redroid-repo/docs/pipeline/current-state.md)
-* Update status ke bahasa Inggris.
-
-#### [MODIFY] [docs/pipeline/decision-log.md](file:///home/sam/Documents/redroid-repo/docs/pipeline/decision-log.md)
-* Update log ke bahasa Inggris.
-
-### 2. Workflow Synchronization
-* Melakukan pengerjaan backup terakhir menggunakan script yang sudah ada.
-* Melakukan upload rilis terakhir ke GitHub untuk memastikan data tersinkronisasi.
-* Melakukan `git commit` dan `git push` untuk versi dokumentasi bahasa Inggris.
+#### [MODIFY] [current-state.md](file:///home/sam/Documents/redroid-repo/docs/pipeline/current-state.md)
+- Update "Supported OS" list to include Alpine Linux.
 
 ## Open Questions
 
 > [!NOTE]
-> Apakah ada preferensi khusus untuk dialek bahasa Inggris (US/UK)? Saya akan menggunakan US English secara default.
+> Are you planning to run the **client** (scrcpy/adb) or the **host** (Docker/Redroid) on the Alpine device? I am assuming the **host**, but I will include instructions for both just in case.
 
 ## Verification Plan
 
 ### Automated Tests
-- Menjalankan `scripts/backup-redroid.sh` dan `scripts/upload-to-release.sh`.
-- Menjalankan `git push` untuk memverifikasi koneksi.
+- Validate `deploy.sh` syntax for POSIX compatibility (Alpine uses `ash` by default, though we target `bash`).
+- Verify that `androidboot.use_memfd=1` does not break existing Ubuntu deployments.
 
 ### Manual Verification
-- Memeriksa keterbacaan dokumentasi di GitHub repository.
-- Memastikan blok `MEMORY UPDATE` terakhir sudah dalam bahasa Inggris.
+- The user should run `./scripts/deploy.sh` on the Alpine device and check `docker logs` for any binder-related errors.
+- Verify `ls -l /dev/binderfs` contains `binder`, `hwbinder`, and `vndbinder` nodes.

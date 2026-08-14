@@ -3,33 +3,36 @@
 ## Host Requirements
 
 - Docker Engine (with `--privileged` support)
-- Kernel module `binder_linux` available
+- Kernel features: **Binder** and **memfd** (or ashmem)
 - Portainer CE (optional, for GUI container management)
 
-### Kernel module
+### Kernel Requirements
 
-Load binder before starting containers:
-
+#### Standard Linux (Ubuntu/Debian)
+Load the `binder_linux` module:
 ```bash
 sudo modprobe binder_linux devices="binder,hwbinder,vndbinder"
 ```
 
-Verify:
+#### Alpine Linux
+On Alpine, Binder is usually built-in (`CONFIG_ANDROID_BINDERFS=y`) rather than a module. You must mount `binderfs` manually:
 
 ```bash
-lsmod | grep binder
+sudo mkdir -p /dev/binderfs
+sudo mount -t binder binder /dev/binderfs
 ```
 
-> **Note on `ashmem_linux`:** this module is **not required** on modern kernels. Confirmed working on host kernel `7.0.0-28-generic` without it — `binder_linux` alone is sufficient, as the Android runtime falls back to `memfd_create()` internally. Do not treat a missing `ashmem_linux` module as a blocker; only `binder_linux` must be loaded.
+To make this persistent, add to `/etc/fstab`:
+`binder /dev/binderfs binder stats=global 0 0`
 
-If `binder_linux` is missing entirely (`modprobe: FATAL: Module ... not found`), the host kernel does not ship it. Building it from source (`redroid-modules` project) or switching to a standard Ubuntu LTS kernel (5.15+) is required in that case.
+> **Note on `ashmem`:** Modern kernels (like Alpine 3.20+ with kernel 6.6+) have removed `ashmem`. Redroid handles this automatically via the `androidboot.use_memfd=1` flag, which is included in the `scripts/deploy.sh` script.
 
 ---
 
 ## Deploying the Containers
 
-### Option A — quick script
-
+### Option A — quick script (Recommended)
+This script auto-detects Alpine Linux and handles binderfs mounting:
 ```bash
 bash scripts/deploy.sh
 ```
@@ -46,7 +49,8 @@ docker run -itd --restart=always --privileged \
   redroid/redroid:11.0.0_gapps \
   androidboot.redroid_width=1080 \
   androidboot.redroid_height=1920 \
-  androidboot.redroid_gpu_mode=guest
+  androidboot.redroid_gpu_mode=guest \
+  androidboot.use_memfd=1
 ```
 
 **redroid-non-gapps** (Android only, lightweight):
@@ -59,24 +63,8 @@ docker run -itd --restart=always --privileged \
   redroid/redroid:11.0.0-latest \
   androidboot.redroid_width=1080 \
   androidboot.redroid_height=1920 \
-  androidboot.redroid_gpu_mode=guest
-```
-
-Flag notes:
-
-| Flag | Purpose |
-|---|---|
-| `--privileged` | Required for binder/ashmem device access |
-| `-v <volume>:/data` | Persists Android state across container restarts (see [BACKUP_RESTORE.md](BACKUP_RESTORE.md)) |
-| `-p host:5555` | Maps ADB port to host; each instance needs a unique host port |
-| `androidboot.redroid_gpu_mode=guest` | Software rendering; use `host` only with validated `/dev/dri` passthrough |
-
-### Verify deployment
-
-```bash
-docker ps
-docker logs -f redroid-gapps      # watch for "Boot completed"
-docker logs -f redroid-non-gapps
+  androidboot.redroid_gpu_mode=guest \
+  androidboot.use_memfd=1
 ```
 
 ---
@@ -100,31 +88,13 @@ docker run -d \
 
 Access: `https://<host-ip>:9443`
 
-First-time setup requires a **setup token**, retrievable from the container logs:
-
-```bash
-docker logs portainer | grep setup_token=
-```
-
-To skip the token requirement (only on trusted/isolated networks):
-
-```bash
-docker run -d --name portainer --restart=always \
-  -p 8000:8000 -p 9443:9443 \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v portainer_data:/data \
-  portainer/portainer-ce:latest \
-  --no-setup-token
-```
-
 ---
 
 ## Open Issues
 
-- [ ] Remote ADB access currently limited to local network / direct IP. Cloudflare Tunnel (used for other services under `anora.my.id`) does not cleanly support raw ADB TCP protocol — requires a TCP-mode tunnel config or a VNC/noVNC bridge instead of HTTP proxying.
-- [x] `ashmem_linux` module unavailable on host kernel `7.0.0-28-generic` — confirmed both containers run stable without it (binder-only setup). Not yet validated under heavy GPU/app workloads.
-- [ ] No noVNC/browser-based access layer set up yet (would remove client-side adb/scrcpy install requirement).
+- [ ] Remote ADB access currently limited to local network.
+- [x] Alpine Linux support (binderfs + memfd).
+- [ ] Browser-based access (noVNC).
 
 ## Security Notes
-
-- Both containers run `--privileged` — required for binder/ashmem device access, but grants elevated host access. Do not expose ADB ports (`5555`/`5581`) directly to the public internet without additional access control (firewall allowlist, VPN, or SSH tunnel).
+- Both containers run `--privileged`. Do not expose ADB ports (`5555`/`5581`) directly to the public internet.

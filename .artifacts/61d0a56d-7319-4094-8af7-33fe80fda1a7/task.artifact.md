@@ -1,16 +1,13 @@
-# Task: Documentation Globalization & Final Sync
+# Task: Alpine Linux Support Implementation
 
-- `[x]` Translate Documentation to English
-    - `[x]` `README.md`
-    - `[x]` `PIPELINE.md`
-    - `[x]` `CONTRIBUTING.md`
-    - `[x]` `.ai/memory.md`
-    - `[x]` `docs/SETUP.md` (Verified English)
-    - `[x]` `docs/USAGE.md` (Verified English)
-    - `[x]` `docs/BACKUP_RESTORE.md`
-    - `[x]` `docs/pipeline/current-state.md`
-    - `[x]` `docs/pipeline/decision-log.md`
+- `[ ]` Update Scripts
+    - `[ ]` Update `scripts/deploy.sh` for Alpine/binderfs support
+- `[ ]` Update Documentation
+    - `[ ]` Update `docs/SETUP.md` with Alpine host requirements
+    - `[ ]` Update `docs/USAGE.md` with Alpine client tools (`apk`)
+    - `[ ]` Update `docs/pipeline/current-state.md` status
 - `[ ]` Final Synchronization
-    - `[ ]` Run final backup (`scripts/backup-redroid.sh`)
-    - `[ ]` Upload to GitHub Releases (`scripts/upload-to-release.sh`)
-    - `[ ]` Commit and Push translations to GitHub
+    - `[ ]` Commit changes to Git
+    - `[ ]` Push to GitHub
+- `[ ]` AI Memory Update
+    - `[ ]` Update `.ai/memory.md` log
