@@ -11,7 +11,8 @@
 
 ## Build & Deploy
 - `scripts/deploy.sh`: Inisialisasi container.
-- `scripts/backup-redroid.sh`: Backup data.
+- `scripts/backup-redroid.sh`: Backup data ke lokal.
+- `scripts/upload-to-release.sh`: Upload file backup ke GitHub Releases.
 
 ## Definition of Done
 - [ ] Script berjalan tanpa error.

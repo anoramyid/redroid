@@ -11,6 +11,7 @@ Repositori untuk manajemen instance Redroid (Android in Docker) baik versi GApps
 1. Pastikan modul kernel `binder_linux` terpasang.
 2. Jalankan `./scripts/deploy.sh` untuk inisialisasi container.
 3. Gunakan `./scripts/mirror-both.sh` untuk menampilkan layar Android.
+4. Gunakan `./scripts/upload-to-release.sh` untuk mengamankan backup ke GitHub Releases.
 
 ## Architecture
 - **redroid-gapps**: Instance dengan Google Play Services (Port 5555).

@@ -1,18 +1,18 @@
 # Task: Implementasi TSA-X & Automasi Backup Redroid
 
-- `[ ]` Inisialisasi Struktur TSA-X
-    - `[ ]` Pindahkan `memory.md` ke `.ai/memory.md`
-    - `[ ]` Buat folder `docs/pipeline/` dan file stubs
-    - `[ ]` Buat `PIPELINE.md` dan `CONTRIBUTING.md`
-    - `[ ]` Pindahkan `docs/CHANGELOG.md` ke root
-    - `[ ]` Update `README.md` ke format TSA-X
-- `[ ]` Persiapan Backup & Git
-    - `[ ]` Buat script `scripts/backup-redroid.sh`
-    - `[ ]` Inisialisasi Git repository (`git init`)
-    - `[ ]` Konfigurasi `.gitignore` (kecualikan file backup besar)
-- `[ ]` Eksekusi Backup & Snapshot
-    - `[ ]` Jalankan backup untuk `redroid-gapps` dan `redroid-non_gapps`
-    - `[ ]` Verifikasi hasil backup di folder `backups/`
-- `[ ]` Finalisasi & Panduan Upload
-    - `[ ]` Berikan instruksi `git remote add` dan `push`
-    - `[ ]` Berikan `MEMORY UPDATE` pertama
+- `[x]` Inisialisasi Struktur TSA-X
+    - `[x]` Pindahkan `memory.md` ke `.ai/memory.md`
+    - `[x]` Buat folder `docs/pipeline/` dan file stubs
+    - `[x]` Buat `PIPELINE.md` dan `CONTRIBUTING.md`
+    - `[x]` Pindahkan `docs/CHANGELOG.md` ke root
+    - `[x]` Update `README.md` ke format TSA-X
+- `[x]` Persiapan Backup & Git
+    - `[x]` Buat script `scripts/backup-redroid.sh`
+    - `[x]` Inisialisasi Git repository (`git init`)
+    - `[x]` Konfigurasi `.gitignore` (kecualikan file backup besar)
+- `[x]` Eksekusi Backup & Snapshot
+    - `[x]` Jalankan backup untuk `redroid-gapps` dan `redroid-non_gapps`
+    - `[x]` Verifikasi hasil backup di folder `backups/`
+- `[x]` Finalisasi & Panduan Upload
+    - `[x]` Berikan instruksi `git remote add` dan `push`
+    - `[x]` Berikan `MEMORY UPDATE` pertama
