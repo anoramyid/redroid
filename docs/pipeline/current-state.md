@@ -1,13 +1,15 @@
 # Current State
-Status proyek saat ini.
+Project status overview.
 
 ## Modules
 - **Core**: Redroid GApps & Non-GApps containers.
-- **Scripts**: Deployment, Mirroring, Backup (in-progress).
-- **Docs**: Setup, Usage, Backup/Restore.
+- **Scripts**: Deployment, Mirroring, Backup, and Release Upload.
+- **Docs**: Setup, Usage, Backup/Restore (All translated to English).
 
 ## Status
 - [x] Base structure
 - [x] Deployment scripts
-- [/] TSA-X Integration
-- [ ] Backup Automation
+- [x] TSA-X Integration
+- [x] Backup Automation
+- [x] GitHub Release Automation
+- [x] English Documentation

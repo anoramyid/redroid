@@ -1,42 +1,55 @@
-# Implementasi Framework TSA-X & Automasi Backup Redroid
+# Documentation Globalization & Final Synchronization
 
-Proyek ini akan diatur menggunakan framework **TSA-X** untuk manajemen pengerjaan, serta ditambahkan fitur automasi backup untuk instance Redroid (GApps & Non-GApps).
+Rencana ini bertujuan untuk menerjemahkan seluruh dokumentasi ke bahasa Inggris, menyelaraskan alur kerja (TSA-X, backup, upload rilis), dan melakukan sinkronisasi akhir ke GitHub.
 
-## User Review Required
+## Proposed Changes
 
-> [!IMPORTANT]
-> Saya mendeteksi instance bernama `redroid-non_gapps` (menggunakan underscore) di sistem Anda, sedangkan script `deploy.sh` merujuk ke `redroid-non-gapps` (menggunakan hyphen). Saya akan menyesuaikan script backup agar mencakup keduanya atau menggunakan deteksi otomatis.
+### 1. Globalization (English Translation)
+Menerjemahkan semua file dokumentasi agar konsisten dalam bahasa Inggris.
 
-## Rencana Perubahan
+#### [MODIFY] [README.md](file:///home/sam/Documents/redroid-repo/README.md)
+* Mengubah konten ke bahasa Inggris dengan struktur TSA-X yang diperbarui.
 
-### 1. Inisialisasi TSA-X (AI Engineering OS)
-* **Pindah Memori**: Memindahkan `memory.md` ke `.ai/memory.md`.
-* **Dokumen Standar**: Membuat `PIPELINE.md`, `CONTRIBUTING.md`, dan melengkapi folder `docs/pipeline/`.
-* **Update README**: Menyesuaikan format `README.md` dengan standar TSA-X.
+#### [MODIFY] [PIPELINE.md](file:///home/sam/Documents/redroid-repo/PIPELINE.md)
+* Mengubah konten ke bahasa Inggris, menjelaskan alur "Backup -> Release".
 
-### 2. Automasi Backup & Git
-* **Script Backup Baru**: Membuat `scripts/backup-redroid.sh` yang akan:
-    * Melakukan `docker inspect` untuk menyimpan konfigurasi.
-    * Melakukan backup data volume `/data` menggunakan `tar` ke dalam folder `backups/`.
-* **Inisialisasi Git**: Menjalankan `git init` untuk melacak perubahan kode dan dokumentasi.
-* **Persiapan Upload**: Menyiapkan instruksi agar user bisa menghubungkan ke remote repository (GitHub/GitLab).
+#### [MODIFY] [CONTRIBUTING.md](file:///home/sam/Documents/redroid-repo/CONTRIBUTING.md)
+* Mengubah konten ke bahasa Inggris.
 
-### 3. Eksekusi Backup
-* Menjalankan proses backup untuk kedua instance Redroid saat ini.
-* Hasil backup akan disimpan secara lokal di folder `backups/` dalam proyek ini.
+#### [MODIFY] [.ai/memory.md](file:///home/sam/Documents/redroid-repo/.ai/memory.md)
+* Mengubah header dan struktur log ke bahasa Inggris.
+
+#### [MODIFY] [docs/SETUP.md](file:///home/sam/Documents/redroid-repo/docs/SETUP.md)
+* Memastikan konten teknis tetap akurat dalam bahasa Inggris.
+
+#### [MODIFY] [docs/USAGE.md](file:///home/sam/Documents/redroid-repo/docs/USAGE.md)
+* Memastikan instruksi penggunaan konsisten dalam bahasa Inggris.
+
+#### [MODIFY] [docs/BACKUP_RESTORE.md](file:///home/sam/Documents/redroid-repo/docs/BACKUP_RESTORE.md)
+* Memperbarui instruksi dengan menonjolkan penggunaan `scripts/backup-redroid.sh`.
+
+#### [MODIFY] [docs/pipeline/current-state.md](file:///home/sam/Documents/redroid-repo/docs/pipeline/current-state.md)
+* Update status ke bahasa Inggris.
+
+#### [MODIFY] [docs/pipeline/decision-log.md](file:///home/sam/Documents/redroid-repo/docs/pipeline/decision-log.md)
+* Update log ke bahasa Inggris.
+
+### 2. Workflow Synchronization
+* Melakukan pengerjaan backup terakhir menggunakan script yang sudah ada.
+* Melakukan upload rilis terakhir ke GitHub untuk memastikan data tersinkronisasi.
+* Melakukan `git commit` dan `git push` untuk versi dokumentasi bahasa Inggris.
 
 ## Open Questions
 
 > [!NOTE]
-> 1. **Stack Proyek**: Saya akan mencatatnya sebagai `Redroid (Docker) | Shell Scripting`. Apakah setuju?
-> 2. **Lokasi Backup**: Apakah Anda ingin hasil backup `.tar.gz` disimpan di dalam folder proyek ini (agar bisa di-upload ke git, *hati-hati dengan ukuran file*) atau di folder luar?
+> Apakah ada preferensi khusus untuk dialek bahasa Inggris (US/UK)? Saya akan menggunakan US English secara default.
 
-## Rencana Verifikasi
+## Verification Plan
 
 ### Automated Tests
-- Menjalankan `scripts/backup-redroid.sh` dan memverifikasi keberadaan file output.
-- Menjalankan `git status` untuk memastikan repositori terinisialisasi.
+- Menjalankan `scripts/backup-redroid.sh` dan `scripts/upload-to-release.sh`.
+- Menjalankan `git push` untuk memverifikasi koneksi.
 
 ### Manual Verification
-- Verifikasi struktur folder `.ai/` dan isi `memory.md`.
-- Simulasi `MEMORY UPDATE` pertama.
+- Memeriksa keterbacaan dokumentasi di GitHub repository.
+- Memastikan blok `MEMORY UPDATE` terakhir sudah dalam bahasa Inggris.

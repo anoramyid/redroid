@@ -1,20 +1,21 @@
-# Pipeline Docs
+# Pipeline Documentation
 
-## Branching
-- `main`: Produksi / Stabil.
-- `dev`: Pengembangan fitur baru.
+## Branching Strategy
+- `main`: Production / Stable branch.
+- `dev`: Development branch for new features.
 
-## Dev Flow
-1. Update `docs/` jika ada perubahan konfigurasi.
-2. Uji script di lingkungan lokal.
-3. Jalankan backup sebelum perubahan besar pada container.
+## Development Workflow
+1. Update `docs/` for any configuration changes.
+2. Test scripts in a local environment.
+3. Perform a backup before making significant changes to containers.
 
 ## Build & Deploy
-- `scripts/deploy.sh`: Inisialisasi container.
-- `scripts/backup-redroid.sh`: Backup data ke lokal.
-- `scripts/upload-to-release.sh`: Upload file backup ke GitHub Releases.
+- `scripts/deploy.sh`: Container initialization.
+- `scripts/backup-redroid.sh`: Local data backup.
+- `scripts/upload-to-release.sh`: Upload backup files to GitHub Releases.
 
-## Definition of Done
-- [ ] Script berjalan tanpa error.
-- [ ] Dokumentasi diperbarui.
-- [ ] Memory Update dilakukan di `.ai/memory.md`.
+## Definition of Done (DoD)
+- [ ] Scripts run without errors.
+- [ ] Documentation is updated (English).
+- [ ] Memory Update is performed in `.ai/memory.md`.
+- [ ] Changes are pushed to the remote repository.

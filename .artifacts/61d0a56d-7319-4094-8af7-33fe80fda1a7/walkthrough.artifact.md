@@ -20,29 +20,22 @@ Saya telah menyelesaikan inisialisasi framework TSA-X dan melakukan backup data 
 - File konfigurasi dan dokumentasi telah di-commit pertama kali.
 - File backup besar secara otomatis diabaikan oleh `.gitignore` agar repositori tetap ringan.
 
+### 4. GitHub Release Automation
+- Dibuat script baru: [upload-to-release.sh](file:///home/sam/Documents/redroid-repo/scripts/upload-to-release.sh).
+- Script ini secara otomatis membuat rilis di GitHub dan mengunggah semua file backup satu per satu.
+- Berhasil mengunggah backup ke [GitHub Releases v1.0.0-initial-backup](https://github.com/anoramyid/redroid/releases/tag/v1.0.0-initial-backup).
+
 ## Hasil Verifikasi
 
-### Backup Redroid
-Backup berhasil dijalankan untuk kedua instance:
-- **Redroid GApps**: Konfigurasi `.json` + Data `333MB` `.tar.gz`.
-- **Redroid Non-GApps**: Konfigurasi `.json` + Data `1.1GB` `.tar.gz`.
+### Backup & Upload
+- **GitHub Release**: [v1.0.0-initial-backup](https://github.com/anoramyid/redroid/releases/tag/v1.0.0-initial-backup)
+- **Files Uploaded**:
+    - `redroid-gapps_data_...tar.gz` (333MB)
+    - `redroid-non_gapps_data_...tar.gz` (1.1GB)
+    - Config files (.json)
+- **Git Repo**: [anoramyid/redroid](https://github.com/anoramyid/redroid)
 
-File dapat ditemukan di: [folder backups/](file:///home/sam/Documents/redroid-repo/backups/)
-
-## Panduan Upload ke Cloud (GitHub/GitLab)
-
-Untuk meng-upload proyek ini ke internet, silakan jalankan perintah berikut di terminal:
-
-```bash
-# 1. Tambahkan remote (ganti URL dengan repo Anda)
-git remote add origin https://github.com/USERNAME/REPO_NAME.git
-
-# 2. Upload kode dan dokumentasi
-git push -u origin master
-```
-
-> [!WARNING]
-> File `.tar.gz` di folder `backups/` tidak akan ikut ter-upload karena ukurannya yang besar. Disarankan untuk meng-upload file tersebut ke Google Drive atau Cloud Storage lainnya secara terpisah.
+Semua sistem sudah berjalan dan data Anda sudah aman di cloud.
 
 ## Memory Update Pertama
 Silakan salin blok di bawah ini ke dalam file [.ai/memory.md](file:///home/sam/Documents/redroid-repo/.ai/memory.md) pada bagian `[LOG]`.
