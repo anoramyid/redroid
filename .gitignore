@@ -1,0 +1,14 @@
+# Backups (too large for git)
+backups/*.tar.gz
+backups/*.json
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+docs/pipeline/debug-log.md (keep stub)
+
+# OS
+.DS_Store
