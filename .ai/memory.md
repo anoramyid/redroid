@@ -22,6 +22,10 @@ STATUS      PRI   DESCRIPTION
 (none)
 
 ## [LOG] ← paste MEMORY UPDATE blocks here, newest on top
+[2026-08-14 10:48]  FILE_EDIT — Added Alpine Linux host support
+                    RESOLVED — Scripts (deploy.sh) and Docs updated for binderfs/memfd
+                    NOTE — Changes pushed to GitHub
+
 [2026-08-14 09:45]  FILE_NEW — scripts/upload-to-release.sh created
                     RESOLVED — Initial backup (1.5GB total) uploaded to GitHub Releases v1.0.0-initial-backup
                     DOCS — README.md and PIPELINE.md updated with release automation steps
@@ -40,6 +44,7 @@ README.md                    2026-08-14
 PIPELINE.md                  2026-08-14
 CHANGELOG.md                 2026-08-14
 CONTRIBUTING.md              2026-08-14
+scripts/deploy.sh            2026-08-14
 scripts/backup-redroid.sh    2026-08-14
 scripts/upload-to-release.sh 2026-08-14
 .ai/memory.md                2026-08-14
@@ -47,3 +52,4 @@ scripts/upload-to-release.sh 2026-08-14
 ## [NOTES]
 - Backups larger than 100MB are stored in GitHub Releases, not in the Git repository.
 - Use `git lfs` only if absolutely necessary; GitHub Releases is preferred for large .tar.gz files.
+- Alpine Linux host requires manual binderfs mounting and `androidboot.use_memfd=1`.
